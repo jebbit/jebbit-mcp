@@ -1,0 +1,89 @@
+{
+  "manifest_version": "0.3",
+  "name": "jebbit-mcp",
+  "display_name": "Experiences by BlueConic",
+  "version": "0.1.0",
+  "description": "Read-only access to your Jebbit experiences: campaigns and how they performed, where campaign data is sent, scheduled exports, and the attributes you collect.",
+  "long_description": "Connect Claude to Experiences by BlueConic using OAuth credentials issued for your brand. Claude can list your campaigns and find one by name, report how each performed — views, engagements, completions and leads — and for a single campaign break that down by which recommendation respondents were shown and where they dropped off question by question.\n\nIt also describes where campaign data goes: every integration configured for the brand with its destination, field mappings and injected static values, the scheduled exports that ship session data on a cadence along with their recent run history, and the attributes you collect. Campaigns, integrations and exports cross-reference in both directions.\n\nSixteen read-only tools, no writes. The connector runs locally on your machine, authenticates only with the credentials you configure, and never returns credentials of any kind: integration and export secrets are not read, destinations are reported as a host rather than a full endpoint, and an email export reports how many recipients it has rather than their addresses.",
+  "author": {
+    "name": "BlueConic",
+    "url": "https://www.blueconic.com"
+  },
+  "homepage": "https://www.blueconic.com/experiences-by-jebbit",
+  "documentation": "https://support-experiences.blueconic.com/en/articles/830025-experiences-by-blueconic-claude-connector",
+  "support": "mailto:support@jebbit.com",
+  "icon": "icon.png",
+  "icons": [
+    {
+      "src": "icon.png",
+      "size": "512x512",
+      "theme": "light"
+    },
+    {
+      "src": "icon-dark.png",
+      "size": "512x512",
+      "theme": "dark"
+    }
+  ],
+  "privacy_policies": [
+    "https://www.blueconic.com/privacy-policy"
+  ],
+  "keywords": [
+    "blueconic",
+    "jebbit",
+    "experiences",
+    "mcp",
+    "campaigns",
+    "analytics",
+    "integrations"
+  ],
+  "tools_generated": false,
+  "server": {
+    "type": "node",
+    "entry_point": "server/index.mjs",
+    "mcp_config": {
+      "command": "node",
+      "args": [
+        "${__dirname}/server/index.mjs"
+      ],
+      "env": {
+        "JEBBIT_CLIENT_ID": "${user_config.client_id}",
+        "JEBBIT_CLIENT_SECRET": "${user_config.client_secret}",
+        "JEBBIT_BUSINESS_ID": "${user_config.business_id}"
+      }
+    }
+  },
+  "user_config": {
+    "client_id": {
+      "type": "string",
+      "title": "OAuth Client ID",
+      "description": "Client ID issued for your BlueConic Experiences API application",
+      "sensitive": true,
+      "required": true
+    },
+    "client_secret": {
+      "type": "string",
+      "title": "OAuth Client Secret",
+      "description": "Client secret issued when the API application was created",
+      "sensitive": true,
+      "required": true
+    },
+    "business_id": {
+      "type": "string",
+      "title": "Default Business ID",
+      "description": "Optional. The brand this connector works with by default. Required if your credentials cover more than one brand and you do not want to name one in every question. You can always ask about a different brand by id without changing this.",
+      "required": false
+    }
+  },
+  "compatibility": {
+    "claude_desktop": ">=1.0.0",
+    "platforms": [
+      "darwin",
+      "win32",
+      "linux"
+    ],
+    "runtimes": {
+      "node": ">=18.0.0"
+    }
+  }
+}

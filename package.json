@@ -1,0 +1,57 @@
+{
+  "name": "@jebbit/jebbit-mcp",
+  "version": "0.1.0",
+  "description": "Jebbit Client-Side MCP Server - scaffold, no tools implemented yet",
+  "main": "dist/client-side-server.js",
+  "types": "dist/client-side-server.d.ts",
+  "type": "module",
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "scripts": {
+    "start": "tsx src/client-side-server.ts",
+    "dev": "node --import=tsx --inspect src/client-side-server.ts",
+    "build": "node scripts/clean-dist.mjs && tsc -p tsconfig.json",
+    "build:mcpb": "node scripts/build-mcpb.mjs",
+    "check:mcpb": "node scripts/check-mcpb-bundle.mjs",
+    "lint": "eslint src scripts",
+    "prepack": "npm run build",
+    "test:unit": "node --experimental-vm-modules ./node_modules/jest/bin/jest.js --config jest.config.cjs --coverage",
+    "test:mcpb": "npm run build:mcpb && npm run check:mcpb",
+    "test": "npm run test:unit && npm run test:mcpb",
+    "validate:mcpb": "npm run build:mcpb && npm run check:mcpb && mcpb validate .",
+    "pack:mcpb": "npm run build:mcpb && npm run check:mcpb && node scripts/pack-mcpb.mjs"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.18.0"
+  },
+  "devDependencies": {
+    "@anthropic-ai/mcpb": "^1.1.0",
+    "@types/jest": "^30.0.0",
+    "@types/node": "^24.3.1",
+    "@typescript-eslint/eslint-plugin": "^8.0.0",
+    "@typescript-eslint/parser": "^8.0.0",
+    "esbuild": "^0.25.0",
+    "eslint": "^9.35.0",
+    "jest": "^30.1.3",
+    "ts-jest": "^29.4.1",
+    "tsx": "^4.20.5",
+    "typescript": "^5.9.2"
+  },
+  "bin": {
+    "jebbit-mcp": "dist/client-side-server.js"
+  },
+  "keywords": [
+    "mcp",
+    "jebbit",
+    "model-context-protocol",
+    "client-side"
+  ],
+  "author": "Jebbit",
+  "license": "SEE LICENSE IN LICENSE",
+  "private": true,
+  "engines": {
+    "node": ">=18"
+  }
+}

@@ -1,0 +1,17 @@
+# Keep the Claude Desktop bundle minimal.
+.claude/
+.git/
+.vscode/
+coverage/
+docs/
+dist/
+node_modules/
+scripts/
+src/
+.gitignore
+.mcpbignore
+eslint.config.js
+jest.config.cjs
+package-lock.json
+README.md
+tsconfig.json
